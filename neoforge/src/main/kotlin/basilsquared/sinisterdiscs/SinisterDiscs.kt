@@ -2,11 +2,11 @@ package basilsquared.sinisterdiscs
 
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.Item
-import net. neoforged.bus.api.IEventBus
+import net.neoforged.bus.api.IEventBus
 import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.registries.DeferredRegister
 
-@Mod("sinister-discs")
+@Mod("sinisterdiscs")
 class SinisterDiscs(modEventBus: IEventBus) {
 
     init {
@@ -18,8 +18,8 @@ class SinisterDiscs(modEventBus: IEventBus) {
 
         val ITEMS: DeferredRegister<Item> = DeferredRegister.create(BuiltInRegistries.ITEM, "sinister-discs")
 
-        val DUMMY_ITEM = ITEMS.register("dummy_item") { ->
+        /*val DUMMY_ITEM = ITEMS.register("dummy_item") { ->
             Item(Item.Properties())
-        }
+        }*/
     }
 }

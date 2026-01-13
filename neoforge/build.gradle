@@ -39,6 +39,9 @@ neoForge {
 
 sourceSets {
     main {
+        kotlin {
+            srcDirs = ['src/main/kotlin']
+        }
         resources {
             srcDirs += 'src/generated/resources'
         }
@@ -78,6 +81,7 @@ repositories {
 
 dependencies {
     // KotlinForForge for NeoForge
+    jarJar("thedarkcolour:kotlinforforge-neoforge:[6.0.0,7)")
     implementation "thedarkcolour:kotlinforforge-neoforge:6.0.0"
 
     implementation(project(':common')) {

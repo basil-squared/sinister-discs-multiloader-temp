@@ -3,35 +3,32 @@ loaderVersion = "[6,)"
 license = "GPL-3.0"
 
 [[mods]]
-modId = "sinister-discs"
+modId = "sinisterdiscs"
 version = "1.2.0"
 displayName = "Sinister Discs"
-logoFile="sinister-discs.png"
+logoFile="sinisterdiscs.png"
 credits="TODO"
 authors = "basil_squared"
-description = '''Adds music discs from the Sinister Minds album. '''
+description = '''Adds music discs from the Sinister Minds album.'''
 
-[[mixins]]
-config = "sinister-discs. mixins.json"
 
-[[mixins]]
-config = "sinister-discs.neoforge. mixins.json"
 
-[[dependencies. sinister-discs]]
+
+[[dependencies. sinisterdiscs]]
 modId = "neoforge"
 type="required"
 versionRange = "[21.11.3-beta,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.sinister-discs]]
+[[dependencies.sinisterdiscs]]
 modId = "minecraft"
 type="required"
 versionRange = "[1.21.11, 1.22)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.sinisterdiscs]]
 modId = "kotlinforforge"
 type="required"
 versionRange = "[6,)"

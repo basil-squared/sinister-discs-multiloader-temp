@@ -6,7 +6,7 @@ import net.minecraft.resources.Identifier
 import net.minecraft.world.item.CreativeModeTab
 
 object ModUtils {
-    const val MOD_ID = "sinister-discs"
+    const val MOD_ID = "sinisterdiscs"
     val TAB_NAME: Component = Component.translatable("itemGroup.$MOD_ID.main_tab")
     fun populateTab(params: CreativeModeTab.ItemDisplayParameters,output: CreativeModeTab.Output) {
         for (item in ModItems.ITEMS_INDEX) {
