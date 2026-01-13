@@ -1,7 +1,18 @@
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
+    id 'org.jetbrains.kotlin.jvm'
 }
+
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
+    configurations.named("$variant") {
+        attributes {
+            attribute(loaderAttribute, 'fabric')
+        }
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
@@ -10,6 +21,19 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.13.8+kotlin.2.3.0")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation(project(":common")) {
+        attributes {
+            attribute(loaderAttribute, "common")
+        }
+    }
+    include(project(":common")) {
+        attributes {
+            attribute(loaderAttribute, "common")
+        }
+    }
 }
 
 loom {
@@ -33,18 +57,34 @@ loom {
             ideConfigGenerated(true)
             runDir('runs/server')
         }
+
+        datagen {
+            client()
+            setConfigName('Fabric Datagen')
+            ideConfigGenerated(true)
+
+
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
+
+            runDir("build/datagen")
+        }
+
     }
 }
 
-// Implement mcgradleconventions loader attribute
-def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
-['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
-    configurations.named("$variant") {
-        attributes {
-            attribute(loaderAttribute, 'fabric')
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/generated/resources'
+            ]
         }
     }
 }
+
 sourceSets.configureEach {
     [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
         configurations.named("$variant") {
@@ -54,10 +94,19 @@ sourceSets.configureEach {
         }
     }
 }
+
 loom.remapConfigurations.configureEach {
     configurations.named(it.name) {
         attributes {
             attribute(loaderAttribute, 'fabric')
         }
     }
+}
+
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    jvmToolchain(21)
 }

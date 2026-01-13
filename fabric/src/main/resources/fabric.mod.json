@@ -12,20 +12,25 @@
         "sources": "https://github.com/FabricMC/fabric-example-mod"
     },
     "license": "${license}",
-    "icon": "${mod_id}.png",
+    "icon": "assets/sinisterdiscs/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.examplemod.ExampleMod"
+            {
+                "value": "basilsquared.sinisterdiscs.FabricSinisterDiscs",
+                "adapter": "kotlin"
+            }
         ]
+
+
     },
     "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
+
     ],
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
         "fabric-api": "*",
+
         "minecraft": "~${minecraft_version}",
         "java": ">=${java_version}"
     },

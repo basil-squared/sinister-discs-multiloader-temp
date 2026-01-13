@@ -3,4 +3,33 @@ plugins {
     id 'fabric-loom' version '1.13-SNAPSHOT' apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '2.0.123' apply false
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+kotlin {
+    jvmToolchain(21)
+}
+
+subprojects {
+    configurations.configureEach {
+        resolutionStrategy {
+            // Force the newer version (9.9) to resolve the conflict
+            force("org.ow2.asm:asm:9.9")
+            force("org.ow2.asm:asm-tree:9.9")
+            force("org.ow2.asm:asm-commons:9.9")
+            force("org.ow2.asm:asm-util:9.9")
+            force("org.ow2.asm:asm-analysis:9.9")
+        }
+    }
+}
+jar {
+    // This command is critical: it forces Gradle to include
+    // ALL compiled classes (Kotlin + Java) and resources.
+    from sourceSets.main.output
 }
